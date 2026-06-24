@@ -24,32 +24,22 @@
 
    ```bash
    # Windows
-   git clone https://github.com/<your-username>/career-opt-copilot.git "%USERPROFILE%\.copilot\skills\career-opt-copilot"
+   git clone https://github.com/<your-username>/career-ops-copilot.git "%USERPROFILE%\.copilot\skills\career-ops-copilot"
 
    # macOS / Linux
-   git clone https://github.com/<your-username>/career-opt-copilot.git ~/.copilot/skills/career-opt-copilot
+   git clone https://github.com/<your-username>/career-ops-copilot.git ~/.copilot/skills/career-ops-copilot
    ```
 
-2. **初始化求职工作区**
+2. **初始化个人工作区**
 
-   在你希望存放简历和求职材料的文件夹中创建以下结构：
+   在 VS Code 中打开 Copilot Chat，输入：
 
-   ```bash
-   mkdir -p job-search/{jds,reports,tailored,interview-prep}
+   ```
+   初始化求职工作区
    ```
 
-   然后创建必要的文件：
-
-   ```bash
-   # 职位追踪表
-   echo "id,company,role,url,score,status,applied_date,response_date,notes" > job-search/tracker.csv
-
-   # 原始简历（用你自己的内容替换）
-   touch job-search/cv_cn.md job-search/cv_en.md
-
-   # STAR 面试素材库
-   echo "# 面试STAR素材库" > job-search/interview_stories.md
-   ```
+   Skill 会引导你创建 `users/<你的名字>/` 目录并生成标准文件结构。
+   然后将你的简历内容填入 `users/<你的名字>/resume/cv_cn.md` 和 `cv_en.md`。
 
 3. **（可选）安装 SPA 页面抓取依赖**
 
@@ -64,7 +54,7 @@
 
 4. **验证安装**
 
-   在 VS Code 中打开求职工作区，启动 Copilot Chat，输入：
+   输入：
 
    ```
    评估这个JD：[粘贴任意 JD 文本]
@@ -75,26 +65,32 @@
 ### File Structure
 
 ```
-career-opt-copilot/
+career-ops-copilot/
 ├── SKILL.md                        # Skill 定义与 Workflow 指令
 ├── README.md                       # 本文件
-└── references/
-    └── spa-scraping-notes.md       # SPA 页面抓取经验 & WLB 参考资源
+├── .gitignore                      # 排除 users/ 个人数据
+├── references/
+│   └── spa-scraping-notes.md       # SPA 页面抓取经验
+└── util/
+    └── fetch_jd.py                 # SPA 页面抓取工具
 ```
 
-### Workspace Layout
+### User Workspace Layout
 
-Skill 操作的目标文件位于用户求职工作区下：
+每个用户在 `users/<username>/` 下拥有独立工作区（gitignored）：
 
 ```
-job-search/
-├── tracker.csv           # 职位追踪表 (single source of truth)
-├── cv_cn.md / cv_en.md   # 原始简历（不可修改）
-├── interview_stories.md  # STAR 素材库
-├── jds/                  # JD 原文存档
-├── reports/              # 评估报告
-├── tailored/             # 定制简历
-└── interview-prep/       # 面试准备材料
+users/<username>/
+├── resume/
+│   ├── cv_cn.md              # 原始中文简历（不可修改）
+│   └── cv_en.md              # 原始英文简历（不可修改）
+├── tracker.csv               # 职位追踪表 (single source of truth)
+├── interview_stories.md      # STAR 素材库
+└── jobs/                     # 每个目标职位一个子目录
+    └── {company}_{role}/
+        ├── eval.md           # 评估报告 + JD 原文
+        ├── cv_cn.md          # 定制简历
+        └── interview_prep.md # 面试准备
 ```
 
 ## Usage

@@ -1,0 +1,8 @@
+# All user data — do NOT commit
+# Each user has their own directory under users/ (e.g., users/JackyTao/)
+# The skill template works without this data
+users/
+
+# Compiled / cache
+__pycache__/
+*.pyc
